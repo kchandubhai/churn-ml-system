@@ -7,6 +7,6 @@ def load_csv(path: str) -> pd.DataFrame:
     """
     logging.info(f"Loading data from {path}")
     df = pd.read_csv(path)
-    logging.info(f"Loaded {len(df)} rows")
+    logging.info(f"Loaded {len(df)} rows with {len(df.columns)} columns")
     return df
 
