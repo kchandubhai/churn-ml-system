@@ -1,0 +1,7 @@
+data:
+  raw_data_path: "data/raw/churn.csv"
+  processed_data_path: "data/processed/churn_clean.csv"
+
+logging:
+  level: "INFO"
+

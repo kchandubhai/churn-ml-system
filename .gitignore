@@ -1,3 +1,6 @@
 __pycache__/
-*.csv
+*.pyc
 .env
+logs/
+data/processed/
+

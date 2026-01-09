@@ -1,0 +1,7 @@
+customer_id,age,tenure_months,monthly_charges,total_charges,contract_type,churn
+C001,34,12,70.5,846.0,monthly,0
+C002,45,5,89.2,446.0,monthly,1
+C003,29,24,55.1,1322.4,yearly,0
+C004,62,2,95.0,190.0,monthly,1
+C005,41,36,65.0,2340.0,yearly,0
+
