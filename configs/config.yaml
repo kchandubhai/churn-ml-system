@@ -1,7 +1,11 @@
-data:
-  raw_data_path: "data/raw/churn.csv"
-  processed_data_path: "data/processed/churn_clean.csv"
+app:
+  env: dev
 
 logging:
-  level: "INFO"
+  level: INFO
+
+data:
+  raw_data_path: data/raw/churn.csv
+  processed_data_path: data/processed/churn_clean.csv
+
 

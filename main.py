@@ -1,3 +1,4 @@
+import os
 import yaml
 import logging
 from src.logger import setup_logging
@@ -10,16 +11,22 @@ def main():
         with open("configs/config.yaml") as f:
             config = yaml.safe_load(f)
 
-        setup_logging(config["logging"]["level"])
+        env = os.getenv("ENV", config["app"]["env"])
 
-        logging.info("Starting data pipeline")
+        if env == "ci":
+            setup_logging("ERROR")
+        elif env == "prod":
+            setup_logging("INFO")
+        else:
+            setup_logging(config["logging"]["level"])
+
+        logging.info(f"Running in environment: {env}")
 
         df = load_csv(config["data"]["raw_data_path"])
         validate_schema(df)
-
         save_data(df, config["data"]["processed_data_path"])
 
-        logging.info("Data pipeline completed successfully")
+        logging.info("Pipeline completed successfully")
 
     except Exception as e:
         logging.error(f"Pipeline failed: {e}")
