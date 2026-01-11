@@ -1,4 +1,4 @@
-import pandas as pd
+
 import pytest
 from src.data.validate_schema import validate_schema
 
@@ -11,29 +11,14 @@ REQUIRED_COLUMNS = [
 ]
 
 @pytest.mark.parametrize("missing_column", REQUIRED_COLUMNS)
-def test_each_required_column_is_enforced(missing_column):
-    data = {
-        "customer_id": [1, 2],
-        "age": [30, 40],
-        "tenure": [12, 24],
-        "monthly_charges": [100, 200],
-        "churn": [0, 1],
-    }
-
-    data.pop(missing_column)
-    df = pd.DataFrame(data)
+def test_each_required_column_is_enforced(valid_churn_dataframe, missing_column):
+    df = valid_churn_dataframe.drop(columns=[missing_column])
 
     with pytest.raises(ValueError):
         validate_schema(df)
 
-def test_multiple_missing_columns_reported():
-    df = pd.DataFrame({
-        "customer_id": [1, 2],
-        "age": [30, 40],
-        # missing tenure
-        # missing monthly_charges
-        "churn": [0, 1],
-    })
+def test_multiple_missing_columns_reported(valid_churn_dataframe):
+    df = valid_churn_dataframe.drop(columns=["tenure", "monthly_charges"])
 
     with pytest.raises(ValueError, match="Missing columns"):
         validate_schema(df)
