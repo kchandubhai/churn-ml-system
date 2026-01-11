@@ -8,4 +8,5 @@ data:
   raw_data_path: data/raw/churn.csv
   processed_data_path: data/processed/churn_clean.csv
 
-
+external_services:
+  example_api_base_url: https://api.example.com

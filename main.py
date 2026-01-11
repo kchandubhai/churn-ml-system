@@ -22,6 +22,11 @@ def main():
 
         logging.info(f"Running in environment: {env}")
 
+        api_key = os.getenv("EXAMPLE_API_KEY")
+
+        if not api_key:
+            logging.warning("EXAMPLE_API_KEY not set. External API calls will be disabled.")
+
         df = load_csv(config["data"]["raw_data_path"])
         validate_schema(df)
         save_data(df, config["data"]["processed_data_path"])
