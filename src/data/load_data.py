@@ -10,3 +10,6 @@ def load_csv(path: str) -> pd.DataFrame:
     logging.info(f"Loaded {len(df)} rows with {len(df.columns)} columns")
     return df
 
+# NOTE: CSV loading utility for churn pipeline
+
+
