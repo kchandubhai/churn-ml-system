@@ -21,7 +21,7 @@ def train_dummy_model(alpha: float, beta: int):
 
 
 if __name__ == "__main__":
-    alpha = 0.01
+    alpha = 0.02
     beta = 10
 
     git_commit = get_git_commit()
