@@ -8,3 +8,6 @@ def test_load_csv_returns_dataframe():
 def test_load_csv_has_rows():
     df = load_csv("data/raw/churn.csv")
     assert len(df) > 0
+
+def test_load_csv_returns_dataframe(valid_churn_dataframe):
+    assert not valid_churn_dataframe.empty

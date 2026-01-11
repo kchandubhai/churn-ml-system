@@ -16,9 +16,9 @@ def validate_schema(df):
     """
     logging.info("Validating data schema")
 
-    for column in EXPECTED_COLUMNS:
-        if column not in df.columns:
-            raise ValueError(f"Schema validation failed. Missing column: {column}")
+    missing_columns = set(EXPECTED_COLUMNS) - set(df.columns)
+    if missing_columns:
+        raise ValueError(f"Missing columns: {sorted(missing_columns)}")
 
     logging.info("Schema validation passed")
     return True
