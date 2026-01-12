@@ -18,7 +18,7 @@ if __name__ == "__main__":
     # Load data (already DVC-tracked)
     df = pd.read_csv("data/raw/churn.csv")
 
-    X = df.drop(columns=["churn"])
+    X = df.drop(columns=["churn", "customer_id"])
     y = df["churn"]
 
     X_train, X_test, y_train, y_test = train_test_split(
