@@ -2,6 +2,12 @@ import mlflow
 import random
 import time
 import subprocess
+import yaml
+
+def get_dvc_data_version(dvc_file_path: str):
+    with open(dvc_file_path, "r") as f:
+        dvc_data = yaml.safe_load(f)
+    return dvc_data["outs"][0]["md5"]
 
 def get_git_commit():
     try:
@@ -29,6 +35,10 @@ if __name__ == "__main__":
     mlflow.set_experiment("churn_dummy_experiments")
 
     with mlflow.start_run():
+
+        data_version = get_dvc_data_version("data/raw/churn.csv.dvc")
+        mlflow.log_param("data_version", data_version)
+
         # Reproducibility metadata
         mlflow.log_param("alpha", alpha)
         mlflow.log_param("beta", beta)
