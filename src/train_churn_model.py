@@ -21,6 +21,14 @@ if __name__ == "__main__":
     X = df.drop(columns=["churn", "customer_id"])
     y = df["churn"]
 
+    # Handle missing values explicitly
+    for col in X.columns:
+        if X[col].dtype == "object":
+            X[col] = X[col].fillna("missing")
+        else:
+            X[col] = X[col].fillna(X[col].median())
+
+
     # One-hot encode categorical features
     X = pd.get_dummies(X, drop_first=True)
 
