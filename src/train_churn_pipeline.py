@@ -3,6 +3,9 @@ import mlflow.sklearn
 import pandas as pd
 import subprocess
 
+from mlflow.models.signature import infer_signature
+
+
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
@@ -66,11 +69,16 @@ if __name__ == "__main__":
         X, y, test_size=0.3, random_state=42
     )
 
+    input_example = X_train.head(5)
+
     # Train
     pipeline.fit(X_train, y_train)
 
     # Evaluate
     accuracy = pipeline.score(X_test, y_test)
+
+    signature = infer_signature(input_example, pipeline.predict(input_example))
+
 
     # Log to MLflow
     mlflow.set_experiment("churn_pipeline_training")
@@ -83,9 +91,12 @@ if __name__ == "__main__":
 
         # Log the ENTIRE pipeline
         mlflow.sklearn.log_model(
-            sk_model=pipeline,
-            artifact_path="model",
-            registered_model_name="ChurnClassifierPipeline"
-        )
+        sk_model=pipeline,
+        artifact_path="model",
+        registered_model_name="ChurnClassifierPipeline",
+        signature=signature,
+        input_example=input_example
+)
+
 
         print(f"Pipeline training complete | accuracy={accuracy}")
